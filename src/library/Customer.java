@@ -1,14 +1,28 @@
 package library;
+/*********************************************
+ * Developer Name: Vinay Reddy Polati        *
+ * Email:          vrpolati@syr.edu          *
+ *                                           *
+* ********************************************/
 
 public class Customer {
 
-    private String title;
+    private TitleType title;
     private String firstName;
     private String middleName;
     private String lastName;
+    private String phoneNumber;
+    private String emailId;
+    private String address;
+    private int customerNumber;
+    private GenderType gender; /*{F:Female, M:Male, UK: UNKNOWN}*/
+    private boolean isValid;
 
     /* constructor1 */
-    public Customer(String title, String fullname){
+    public Customer(TitleType title, String fullname,String address, String emailId, String phoneNumber,
+                    int  customerNumber,GenderType gender){
+        this.address = address; this.phoneNumber = phoneNumber; this.emailId = emailId;
+        this.customerNumber = customerNumber; this.gender = gender;
         this.title = title;
         int spaceIndex = fullname.indexOf(" ");
         this.firstName = spaceIndex != -1? fullname.substring(0,spaceIndex): fullname;
@@ -23,10 +37,11 @@ public class Customer {
         }else{
             this.middleName = new String();
         }
+        this.isValid = true;
     }
 
     /* constructor2 */
-    public Customer(String title,String firstName, String middleName, String lastName){
+    public Customer(TitleType title,String firstName, String middleName, String lastName){
         this.title = title;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -54,10 +69,16 @@ public class Customer {
     }
 
     /* returns Mailing Name,
-   Mailing Name = Title + space + First Initial + space + Surname
+ -----------------------------------------------------------------------------------
+ | Mailing Name = Title + space + First Initial + space + Surname                   |
+ -----------------------------------------------------------------------------------
    Eg: Mr. V Polati for [Vinay Reddy Polati]. */
     public String getMailingName(){
         String mailingName = this.title+" "+firstName.charAt(0)+" "+lastName;
         return mailingName;
+    }
+
+    public GenderType getGender(){
+        return gender;
     }
 }
