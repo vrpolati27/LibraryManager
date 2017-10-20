@@ -1,4 +1,12 @@
-package library;
+package models;
+
+import utility.GenderType;
+import utility.TitleType;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 /*********************************************
  * Developer Name: Vinay Reddy Polati        *
  * Email:          vrpolati@syr.edu          *
@@ -17,6 +25,7 @@ public class Customer {
     private int customerNumber;
     private GenderType gender; /*{F:Female, M:Male, UK: UNKNOWN}*/
     private boolean isValid;
+    private Date validThru;
 
     /* constructor1 */
     public Customer(TitleType title, String fullname,String address, String emailId, String phoneNumber,
@@ -38,6 +47,13 @@ public class Customer {
             this.middleName = new String();
         }
         this.isValid = true;
+
+        /* Set default exp date to be 1 Year from the start of creating account.*/
+        Date today = new Date();
+        GregorianCalendar gcal = new GregorianCalendar();
+        gcal.setTime(today);
+        gcal.add(GregorianCalendar.YEAR,1);
+        validThru = gcal.getTime();
     }
 
     /* constructor2 */
@@ -46,6 +62,13 @@ public class Customer {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+
+        /* Set default exp date to be 1 Year from the start of creating account.*/
+        Date today = new Date();
+        GregorianCalendar gcal = new GregorianCalendar();
+        gcal.setTime(today);
+        gcal.add(GregorianCalendar.YEAR,1);
+        validThru = gcal.getTime();
     }
 
     /* returns FullName*/
@@ -74,11 +97,24 @@ public class Customer {
  -----------------------------------------------------------------------------------
    Eg: Mr. V Polati for [Vinay Reddy Polati]. */
     public String getMailingName(){
-        String mailingName = this.title+" "+firstName.charAt(0)+" "+lastName;
-        return mailingName;
+        StringBuilder mailingName = new StringBuilder(this.title+" ");
+        mailingName.append(firstName.charAt(0)+" ");
+        mailingName.append(lastName);
+        return mailingName.toString();
     }
 
     public GenderType getGender(){
         return gender;
     }
+
+    /* returns exp date. */
+    public String getExpDate(){
+        return validThru.toString();
+    }
+
+    /* returns expired date in a required Format*/
+    public String getExpDate(SimpleDateFormat sdf){
+        return sdf.format(validThru);
+    }
+    
 }
