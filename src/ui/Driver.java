@@ -21,6 +21,7 @@ public class Driver {
         dataTimeDemo();
         handlingNumbers();/* java.text.NumberFormat */
         dvdDemo(); /*models.Dvd*/
+
     }
 
     /* This method tests working of models.Customer class*/
@@ -69,12 +70,15 @@ public class Driver {
         books.addBook(swift); books.addBook(algorithms);
         System.out.println();
         books.displayBooks();
-
-        Book foundBook = books.findBookByTitle("AlgorithmsForInterviews");
-        if(foundBook!= null){
+        try{
+            Book foundBook = books.findBookByTitle("AlgorithmsForInterviews");
             System.out.println("Found book, its ID:"+foundBook.getId()+" and ISBN:"+
-                            foundBook.getIsbn());
+                    foundBook.getIsbn());
+        }catch(BookNotFoundException exception){
+            System.out.println("Book not Found");
+            exception.printStackTrace();
         }
+        /*throw new RuntimeException("something went wrong");*/
     }
 
     /* This demonstrates using  Java in-built Data and Time Libraries.
@@ -152,9 +156,15 @@ public class Driver {
     private static void dvdDemo(){
         Dvd interstellar = new Dvd(9987,"Interstellar","br3",
                 "Spielberg","13",123);
+        Dvd interstellar2 = new Dvd(9987,"Interstellar","br3",
+                "Spielberg","13",123);
 
         System.out.println(interstellar.getDirector());
         System.out.println(interstellar.isLicenced());
+
+        System.out.println(interstellar);
+        System.out.println(interstellar.equals(interstellar2));
+
     }
 
 

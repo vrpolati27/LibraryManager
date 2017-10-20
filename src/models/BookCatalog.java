@@ -3,7 +3,7 @@ package models;
 import ui.ConsoleInterface;
 
 public class BookCatalog {
-    private Book[] books = new Book[10];
+    private Book[] books = new Book[30];
     private int nextFreeSpace = 0;
 
     /* This method adds a book to current books catalog if there is a room
@@ -18,15 +18,13 @@ public class BookCatalog {
 
     /* searches all the books and returns a book if found in the catalog,
     * T(n) = O(n) where 'n' is the #books */
-    public Book findBookByTitle(String title){
-        Book result = null;
+    public Book findBookByTitle(String title) throws BookNotFoundException {
         for(Book book:books){
             if(book != null && book.getTitle().equals(title)){
-                result = book;
-                break;
+                return book;
             }
         }
-        return result;
+        throw new BookNotFoundException();
     }
 
 

@@ -46,6 +46,26 @@ abstract public class Material {
         }
     }
 
+    @Override
+    public String toString() {
+        return title;
+    }
+
     /* must be overriden*/
     public abstract int getLoanPeriod();
+
+    @Override
+    public boolean equals(Object object) {
+        if(this == object) return true;
+        if(object == null || this.getClass() != object.getClass())
+            return false;
+
+        Material material = (Material) object;
+        return id == material.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return new Integer(id).hashCode();
+    }
 }

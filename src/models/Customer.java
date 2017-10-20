@@ -117,4 +117,44 @@ public class Customer {
         return sdf.format(validThru);
     }
 
+    @Override
+    public String toString() {
+        return getMailingName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (customerNumber != customer.customerNumber) return false;
+        if (isValid != customer.isValid) return false;
+        if (title != customer.title) return false;
+        if (!firstName.equals(customer.firstName)) return false;
+        if (!middleName.equals(customer.middleName)) return false;
+        if (!lastName.equals(customer.lastName)) return false;
+        if (!phoneNumber.equals(customer.phoneNumber)) return false;
+        if (!emailId.equals(customer.emailId)) return false;
+        if (!address.equals(customer.address)) return false;
+        if (gender != customer.gender) return false;
+        return validThru.equals(customer.validThru);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = title.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + middleName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + phoneNumber.hashCode();
+        result = 31 * result + emailId.hashCode();
+        result = 31 * result + address.hashCode();
+        result = 31 * result + customerNumber;
+        result = 31 * result + gender.hashCode();
+        result = 31 * result + (isValid ? 1 : 0);
+        result = 31 * result + validThru.hashCode();
+        return result;
+    }
 }
