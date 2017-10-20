@@ -1,4 +1,6 @@
-package library;
+package ui;
+
+import models.Book;
 
 /*
  Description: This class defines methods to output objects to console in a specified Format
