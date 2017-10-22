@@ -7,9 +7,7 @@ import utility.TitleType;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Driver {
@@ -21,6 +19,7 @@ public class Driver {
         dataTimeDemo();
         handlingNumbers();/* java.text.NumberFormat */
         dvdDemo(); /*models.Dvd*/
+        collectionsDemo(); /* java.util.Collections;*/
 
     }
 
@@ -167,6 +166,53 @@ public class Driver {
 
     }
 
+    /* demonstrates how to use Java.util.Collections library. */
+    private static void collectionsDemo(){
+        /* LinkedList */
+        List<String> list = new ArrayList<>();
+        list.add("one");
+        list.add("two"); list.add("three");
+        list.add("five");
+        System.out.println(list);
+        list.add(3,"four");
+        System.out.println(list);
 
+        /* HashSet */
+        Set<String> set = new HashSet<>();
+        set.add("sOne"); set.add("sTwo");
+        set.add("sThree"); set.add("first");
+        System.out.println(set.add("1"));;
+        System.out.println(set.add("sOne"));
+        ; set.add("sTwo");
+        System.out.println(set);
+        Iterator<String> itr = set.iterator();
+        while(itr.hasNext()){
+            System.out.println(itr.next()+" ");
+        }
+
+
+        /* HashMap */
+        Map<Integer,String> map = new HashMap<>();
+        map.put(3,"three");
+        map.put(2,"two");
+        map.put(1,"one");
+        System.out.println(map);
+
+
+        List<Integer> keys = new ArrayList<>();
+        Iterator<Integer> itr2 = map.keySet().iterator();
+        while(itr2.hasNext()){
+            keys.add(itr2.next());
+        }
+        Collections.sort(keys, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return -1*o1.compareTo(o2);
+            }
+        });
+        for(int m1:keys){
+            System.out.println(map.get(m1));
+        }
+    }
 
 }

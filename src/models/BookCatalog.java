@@ -2,25 +2,28 @@ package models;
 
 import ui.ConsoleInterface;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BookCatalog {
-    private Book[] books = new Book[30];
-    private int nextFreeSpace = 0;
+    private Map<Integer,Book> books;
+
+    /*constructor1*/
+    public BookCatalog(){
+        books = new HashMap<>();
+    }
 
     /* This method adds a book to current books catalog if there is a room
     * T(n)=O(1), constant time */
-    public boolean addBook(Book book){
-        boolean addedSuccessfully = nextFreeSpace<books.length ? true:false;
-        if(addedSuccessfully){
-            books[nextFreeSpace++] = book;
-        }
-        return addedSuccessfully;
+    public void addBook(Book book){
+        books.put(book.getId(),book);
     }
 
     /* searches all the books and returns a book if found in the catalog,
     * T(n) = O(n) where 'n' is the #books */
     public Book findBookByTitle(String title) throws BookNotFoundException {
-        for(Book book:books){
-            if(book != null && book.getTitle().equals(title)){
+        for(Book book:books.values()){
+            if(book != null && book.getTitle().equalsIgnoreCase(title)){
                 return book;
             }
         }
@@ -34,10 +37,14 @@ public class BookCatalog {
        ConsoleInterface.printBookHeader();
        ConsoleInterface.printLine();
        System.out.println();
-       for(int count=0;count<nextFreeSpace;count++){
-           Book currentBook = books[count];
-           ConsoleInterface.printBook(currentBook);
+       for(Book book:books.values()){
+           ConsoleInterface.printBook(book);
        }
+    }
+
+    /* returns #books in the catalog*/
+    public int getBooksCount(){
+        return books.size();
     }
 
 }

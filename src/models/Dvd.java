@@ -56,8 +56,8 @@ public class Dvd extends Material {
         }
     }
 
-    @Override /* loan period for Dvd's is 7*/
+    @Override /* loan period for Dvd's is 14*/
     public int getLoanPeriod() {
-        return 7;
+        return 14;
     }
 }

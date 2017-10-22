@@ -1,34 +1,32 @@
 package models;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoansRegistry {
 
-    private Loan[] registry;
-    private int nextFreePosition;
+    private Map<Integer,Loan> registry;
 
     /* constructor1 */
     public LoansRegistry() {
-        registry = new Loan[20];
-        nextFreePosition = 0;
+        registry = new HashMap<>();
     }
 
     /* adds loan to the Registry.
-    * T(n) = O(n), where 'n' is the #Loan entries in the registry*/
+    * T(n) = O(1), constant time.*/
     public void addLoan(Loan loan) throws LoanAlreadyExistsException{
-       for(int c1=0;c1<nextFreePosition;c1++){
-          if(registry[c1].equals(loan)){
-              throw new LoanAlreadyExistsException();
-          }
+       Loan m1 = registry.getOrDefault(loan.getId(),null);
+       if(m1==null){
+           registry.put(loan.getId(),loan);
+       }else{
+           throw new LoanAlreadyExistsException();
        }
-
-       registry[nextFreePosition] = loan;
-       nextFreePosition++;
     }
 
     /* finds a Loan and returns it
     * T(n)=O(n), where 'n' = #loans in the registry. */
     public Loan findLoan(int materialId) throws LoanNotFoundException{
-        for(int m1=0;m1<nextFreePosition;m1++){
-            Loan loan = registry[m1];
+        for(Loan loan:registry.values()){
             if(loan.getMaterial().getId() == materialId){
                 return loan;
             }
@@ -39,7 +37,7 @@ public class LoansRegistry {
 
     /* returns true if book is already on loan and
       False otherwise.*/
-    public boolean isBookOnLoan(int materialId){
+    public boolean isMaterialOnLoan(int materialId){
         try{
             findLoan(materialId);
             return true;

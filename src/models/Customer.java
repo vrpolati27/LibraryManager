@@ -39,9 +39,9 @@ public class Customer {
         this.lastName = names.length>1 ? names[names.length-1]:new String();
         if(names.length>2){
             StringBuilder middleName = new StringBuilder();
-            for(int i=1;i<names.length-1;i++){
+            for(int i=1;i<names.length-2;i++){
                 middleName.append(names[i]+" ");
-            }
+            } middleName.append(names[names.length-2]);
             this.middleName = middleName.toString();
         }else{
             this.middleName = new String();
@@ -59,9 +59,9 @@ public class Customer {
     /* constructor2 */
     public Customer(TitleType title,String firstName, String middleName, String lastName){
         this.title = title;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
+        this.firstName = firstName.trim();
+        this.middleName = middleName.trim();
+        this.lastName = lastName.trim();
 
         /* Set default exp date to be 1 Year from the start of creating account.*/
         Date today = new Date();
@@ -73,7 +73,11 @@ public class Customer {
 
     /* returns FullName*/
     public String getFullName(){
-        return firstName+" "+ middleName+" "+lastName;
+        StringBuilder fullName = new StringBuilder(firstName);
+        fullName.append(" ");
+        fullName.append(middleName); fullName.append(" ");
+        fullName.append(lastName);
+        return fullName.toString();
     }
 
     /* returns FirstName*/

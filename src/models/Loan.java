@@ -23,10 +23,11 @@ public class Loan {
         /* set current date as start date*/
         this.startDate = new Date();
 
-        /* set due date to be 2 weeks from start date.*/
+        /* set due date to be 2 weeks from start date if material is Book,
+         3 weeks from start if material is Dvd.*/
         GregorianCalendar gcal = new GregorianCalendar();
         gcal.setTime(startDate);
-        gcal.add(GregorianCalendar.DATE,14);
+        gcal.add(GregorianCalendar.DATE,material.getLoanPeriod());
         this.dueDate = gcal.getTime();
 
         this.status = LoanStatus.CURRENT;
@@ -91,5 +92,9 @@ public class Loan {
     /* returns start date of the Material. */
     public Date getStartDate() {
         return startDate;
+    }
+
+    public int getId() {
+        return id;
     }
 }
